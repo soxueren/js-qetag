@@ -18,7 +18,7 @@
     var AMD = typeof define === 'function' && define.amd;
 
 
- var qetag = function(buffer, file, cb, pgcb, sha1String, index, blockfile){
+ var qetag = function(buffer, file, cb, pgcb, sha1String){
     // sha1算法
     var shA1 = sha1.digest;
 
@@ -40,11 +40,8 @@
     if (file) {
         let totalsize = file.size;       
         blockCount = Math.ceil(totalsize / blockSize);
-        if (index == undefined && blockfile == undefined) {
-            index = 0;
-        }       
+        let index=0, blockfile=undefined;          
         let starttime = Date.now();
-
         let step = blockCount < 21 ? 1 : blockCount > 100 ? blockCount > 500 ? blockCount > 1000 ? 23 : 11 : 7 : 3;       
         let hashindex=[];
         for (let i = 0; i < blockCount-1; i += step) {
